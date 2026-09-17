@@ -11,11 +11,21 @@
     <!-- Header Navegable -->
     <header>
         <div class="logo">
-            <a href="index.html">AVOCARE</a>
+            <a href="index.html" class="logo-link">
+                AV<svg class="logo-avocado" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Silueta exterior del aguacate -->
+                    <path d="M50,10 C30,10 20,35 20,60 C20,80 33,90 50,90 C67,90 80,80 80,60 C80,35 70,10 50,10 Z" fill="currentColor"/>
+                    <!-- Pulpa interior -->
+                    <path d="M50,20 C36,20 28,40 28,60 C28,75 37,82 50,82 C63,82 72,75 72,60 C72,40 64,20 50,20 Z" fill="#FAF8F5"/>
+                    <!-- Semilla (Pepa) -->
+                    <circle cx="50" cy="62" r="14" fill="#C5A059"/>
+                </svg>CARE
+            </a>
         </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Sobre Nosotros</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#beneficios">Beneficios</a></li>
                 <li><a href="#uso">Modo de Uso</a></li>
@@ -38,87 +48,133 @@
             </div>
         </section>
 
-        <!-- Sección Productos (Scroll Horizontal) -->
+        <!-- Sección Sobre Nosotros -->
+        <section id="nosotros" class="section-padding bg-light">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; line-height: 1.8;">
+                <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 1.5rem;">
+                    Avocare nació en las aulas universitarias como una iniciativa de cinco estudiantes durante la clase de Microeconomía. Nuestro objetivo era responder a un desafío fundamental: desarrollar una propuesta de valor con un modelo de negocio sostenible que cubriera una necesidad real.
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-main);">
+                    Al identificar que la semilla de aguacate es desechada habitualmente a pesar de sus propiedades antioxidantes y nutritivas, decidimos reaprovechar este recurso. Todos nuestros productos están guiados por el principio de la economía circular, combinando alta calidad en el cuidado capilar con una profunda responsabilidad social y ambiental.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sección Productos (Carrusel Infinito) -->
         <section id="productos" class="section-padding">
-    <h2 class="section-title">Nuestra Línea Avocare</h2>
-    
-    <div class="products-container">
-        <!-- Pista del carrusel -->
-        <div class="products-track">
-                <!-- Producto 1 -->
-                <div class="product-card">
-                    <div class="product-img-placeholder">Mascarilla 250g</div>
-                    <h3>Mascarilla Clásica Avocare</h3>
-                    <p>Tratamiento intensivo para uso semanal. Ideal para cabello seco.</p>
-                    <p class="price">$45.000</p>
-                    <div class="card-actions">
-                        <button class="btn-secondary" onclick="openModal('modal-prod-1')">Ver más</button>
-                        <button class="btn-primary" onclick="addToCart(1, 'Mascarilla Clásica 250g', 45000)">Agregar 🛒</button>
+            <h2 class="section-title">Nuestra Línea Avocare</h2>
+            <div class="products-container">
+                <div class="products-track">
+                    <!-- Producto 1 -->
+                    <div class="product-card">
+                        <div class="product-img-placeholder">Mascarilla 250g</div>
+                        <h3>Mascarilla Clásica Avocare</h3>
+                        <p>Tratamiento intensivo para uso semanal. Ideal para cabello seco.</p>
+                        <p class="price">$45.000</p>
+                        <div class="card-actions">
+                            <button class="btn-secondary" onclick="openModal('modal-prod-1')">Ver más</button>
+                            <button class="btn-primary" onclick="addToCart(1, 'Mascarilla Clásica 250g', 45000)">Agregar 🛒</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Producto 2 -->
-                <div class="product-card">
-                    <div class="product-img-placeholder">Mascarilla 500g</div>
-                    <h3>Mascarilla PRO Avocare</h3>
-                    <p>Tamaño profesional para una hidratación continua y duradera.</p>
-                    <p class="price">$75.000</p>
-                    <div class="card-actions">
-                        <button class="btn-secondary" onclick="openModal('modal-prod-2')">Ver más</button>
-                        <button class="btn-primary" onclick="addToCart(2, 'Mascarilla PRO 500g', 75000)">Agregar 🛒</button>
+                    <!-- Producto 2 -->
+                    <div class="product-card">
+                        <div class="product-img-placeholder">Mascarilla 500g</div>
+                        <h3>Mascarilla PRO Avocare</h3>
+                        <p>Tamaño profesional para una hidratación continua y duradera.</p>
+                        <p class="price">$75.000</p>
+                        <div class="card-actions">
+                            <button class="btn-secondary" onclick="openModal('modal-prod-2')">Ver más</button>
+                            <button class="btn-primary" onclick="addToCart(2, 'Mascarilla PRO 500g', 75000)">Agregar 🛒</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Producto 3 -->
-                <div class="product-card">
-                    <div class="product-img-placeholder">Sérum 30ml</div>
-                    <h3>Sérum Reparador</h3>
-                    <p>Sella las puntas abiertas y aporta un brillo radiante sin peso.</p>
-                    <p class="price">$35.000</p>
-                    <div class="card-actions">
-                        <button class="btn-secondary" onclick="openModal('modal-prod-3')">Ver más</button>
-                        <button class="btn-primary" onclick="addToCart(3, 'Sérum Reparador', 35000)">Agregar 🛒</button>
+                    <!-- Producto 3 -->
+                    <div class="product-card">
+                        <div class="product-img-placeholder">Sérum 30ml</div>
+                        <h3>Sérum Reparador</h3>
+                        <p>Sella las puntas abiertas y aporta un brillo radiante sin peso.</p>
+                        <p class="price">$35.000</p>
+                        <div class="card-actions">
+                            <button class="btn-secondary" onclick="openModal('modal-prod-3')">Ver más</button>
+                            <button class="btn-primary" onclick="addToCart(3, 'Sérum Reparador', 35000)">Agregar 🛒</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Producto 4 -->
-                <div class="product-card">
-                    <div class="product-img-placeholder">Champú 400ml</div>
-                    <h3>Champú Revitalizante</h3>
-                    <p>Limpieza suave que prepara la cutícula para la mascarilla.</p>
-                    <p class="price">$42.000</p>
-                    <div class="card-actions">
-                        <button class="btn-secondary" onclick="openModal('modal-prod-4')">Ver más</button>
-                        <button class="btn-primary" onclick="addToCart(4, 'Champú Revitalizante', 42000)">Agregar 🛒</button>
+                    <!-- Producto 4 -->
+                    <div class="product-card">
+                        <div class="product-img-placeholder">Champú 400ml</div>
+                        <h3>Champú Revitalizante</h3>
+                        <p>Limpieza suave que prepara la cutícula para la mascarilla.</p>
+                        <p class="price">$42.000</p>
+                        <div class="card-actions">
+                            <button class="btn-secondary" onclick="openModal('modal-prod-4')">Ver más</button>
+                            <button class="btn-primary" onclick="addToCart(4, 'Champú Revitalizante', 42000)">Agregar 🛒</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Producto 5 -->
-                <div class="product-card">
-                    <div class="product-img-placeholder">Kit Completo</div>
-                    <h3>Kit Cuidado Intensivo</h3>
-                    <p>Mascarilla 250g + Champú + Sérum. El ritual completo.</p>
-                    <p class="price">$110.000</p>
-                    <div class="card-actions">
-                        <button class="btn-secondary" onclick="openModal('modal-prod-5')">Ver más</button>
-                        <button class="btn-primary" onclick="addToCart(5, 'Kit Cuidado Intensivo', 110000)">Agregar 🛒</button>
+                    <!-- Producto 5 -->
+                    <div class="product-card">
+                        <div class="product-img-placeholder">Kit Completo</div>
+                        <h3>Kit Cuidado Intensivo</h3>
+                        <p>Mascarilla 250g + Champú + Sérum. El ritual completo.</p>
+                        <p class="price">$110.000</p>
+                        <div class="card-actions">
+                            <button class="btn-secondary" onclick="openModal('modal-prod-5')">Ver más</button>
+                            <button class="btn-primary" onclick="addToCart(5, 'Kit Cuidado Intensivo', 110000)">Agregar 🛒</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Resto de secciones de forma resumida -->
+        <!-- Sección Beneficios -->
         <section id="beneficios" class="section-padding bg-light">
             <h2 class="section-title">Beneficios</h2>
             <p style="text-align:center;">Rica en antioxidantes y ácidos grasos, la pepa de aguacate restaura la fibra capilar desde adentro hacia afuera.</p>
         </section>
+
+        <!-- Sección Modo de Uso -->
         <section id="uso" class="section-padding">
             <h2 class="section-title">Modo de Uso</h2>
             <p style="text-align:center;">Aplica sobre el cabello húmedo después del lavado. Deja actuar 15 minutos y enjuaga con abundante agua tibia.</p>
         </section>
-        <section id="contacto" class="section-padding bg-dark text-white">
-            <h2 class="section-title text-white">Contacto</h2>
-            <p style="text-align:center;">¿Dudas? Escríbenos a hola@avocare.com</p>
+
+        <!-- Sección de Contacto -->
+        <section id="contacto" class="section-padding bg-light">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-container">
+                <div class="contact-card">
+                    <h3>Estamos para ayudarte</h3>
+                    <p>¿Tienes dudas sobre nuestros productos o tu pedido? Ponte en contacto con nosotros.</p>
+                    <ul class="contact-list">
+                        <li>
+                            <strong>Correo Electrónico:</strong> 
+                            <a href="mailto:soporte@avocare.com">soporte@avocare.com</a>
+                        </li>
+                        <li>
+                            <strong>Teléfono / WhatsApp:</strong> 
+                            <a href="tel:+573131234567">+57 3131234567</a>
+                        </li>
+                        <li>
+                            <strong>Ubicación:</strong> Cra. 4 #22-61, Bogotá
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Modales de Productos (Ocultos por defecto) -->
+    <!-- Pie de Página (Footer) -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Términos y condiciones</a>
+                <a href="#">Aviso de privacidad</a>
+                <a href="#">Accesibilidad</a>
+            </div>
+            <p class="copyright">&copy; 2026 Avocare. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modales de Productos -->
     <div id="modal-prod-1" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modal-prod-1')">&times;</span>
@@ -127,9 +183,12 @@
         </div>
     </div>
     <div id="modal-prod-2" class="modal">
-        <div class="modal-content"><span class="close" onclick="closeModal('modal-prod-2')">&times;</span><h2>Ingredientes - Mascarilla PRO</h2><p>Fórmula concentrada con doble extracto de pepa de aguacate, Queratina hidrolizada y Aceite de Argán.</p></div>
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-prod-2')">&times;</span>
+            <h2>Ingredientes - Mascarilla PRO</h2>
+            <p>Fórmula concentrada con doble extracto de pepa de aguacate, Queratina hidrolizada y Aceite de Argán.</p>
+        </div>
     </div>
-    <!-- (Puedes replicar los modales para el resto de productos) -->
 
     <script src="main.js"></script>
 </body>

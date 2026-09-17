@@ -382,3 +382,110 @@ body.bg-light::before {
     background-repeat: no-repeat;
     z-index: -1;
 }
+
+/* --- Sección Contacto y Pie de Página --- */
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.contact-card h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-dark);
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.contact-card p {
+    color: #666;
+    margin-bottom: 1.8rem;
+}
+
+.contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: left;
+}
+
+.contact-list li {
+    font-size: 1rem;
+    color: var(--text-main);
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.8rem;
+}
+
+.contact-list a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.contact-list a:hover {
+    color: var(--primary-dark);
+}
+
+.main-footer {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 3rem 5% 2rem;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+    color: #e0e5db;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent-gold);
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #a0b09d;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+}
+
+/* --- Estilos para el Logo con Aguacate SVG --- */
+.logo-link {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 2.2rem; /* Tamaño general del texto del logo */
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-decoration: none;
+    letter-spacing: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.logo-avocado {
+    width: 1.15em;  /* Incrementado para darle más presencia visual */
+    height: 1.13em; /* Incrementado proporcionalmente */
+    vertical-align: middle;
+    margin: 0 -2px; /* Margen negativo leve para integrar perfectamente el espacio entre letras */
+    transform: translateY(-1px); /* Alineación óptica con la base de las letras */
+    color: var(--primary-dark);
+}
