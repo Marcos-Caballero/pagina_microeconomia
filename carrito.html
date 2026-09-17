@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | Avocare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <header>
+        <div class="logo"><a href="index.html">AVOCARE</a></div>
+        <div class="user-actions">
+            <a href="index.html" class="icon-link">Volver a Inicio</a>
+        </div>
+    </header>
+
+    <main class="section-padding">
+        <h2 class="section-title">Tu Carrito de Compras</h2>
+        
+        <div class="cart-container">
+            <div id="cart-items" class="cart-items">
+                <!-- Se inyecta con JS -->
+            </div>
+            
+            <div class="cart-summary">
+                <h3>Resumen de la Orden</h3>
+                <div class="summary-line"><span>Subtotal:</span> <span id="subtotal">$0</span></div>
+                <div class="summary-line"><span>IVA (19%):</span> <span id="iva">$0</span></div>
+                <div class="summary-line total"><span>Total:</span> <span id="total">$0</span></div>
+                <button id="btn-checkout" class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="processCheckout()">Finalizar Compra</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Compra Exitosa -->
+    <div id="modal-checkout" class="modal">
+        <div class="modal-content text-center">
+            <h2 style="color: var(--primary-dark);">¡Pedido Confirmado!</h2>
+            <p>Gracias por tu compra en Avocare.</p>
+            <p>Tu número de orden simulada es: <strong id="order-number"></strong></p>
+            <button class="btn-primary" onclick="window.location.href='index.html'" style="margin-top: 20px;">Volver a la tienda</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Renderizar el carrito automáticamente al cargar esta página
+        document.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+</body>
+</html>

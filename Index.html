@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avocare | Cuidado Capilar Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navegable -->
+    <header>
+        <div class="logo">
+            <a href="index.html">AVOCARE</a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#uso">Modo de Uso</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="login.html" class="icon-link">👤 Cuenta</a>
+            <a href="carrito.html" class="icon-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección Inicio -->
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>El poder de la semilla de aguacate en tu cabello</h1>
+                <p>Reparación profunda, brillo natural y nutrición premium.</p>
+                <a href="#productos" class="btn-primary">Descubrir Productos</a>
+            </div>
+        </section>
+
+        <!-- Sección Productos (Scroll Horizontal) -->
+        <section id="productos" class="section-padding">
+            <h2 class="section-title">Nuestra Línea Avocare</h2>
+            <div class="products-container">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <div class="product-img-placeholder">Mascarilla 250g</div>
+                    <h3>Mascarilla Clásica Avocare</h3>
+                    <p>Tratamiento intensivo para uso semanal. Ideal para cabello seco.</p>
+                    <p class="price">$45.000</p>
+                    <div class="card-actions">
+                        <button class="btn-secondary" onclick="openModal('modal-prod-1')">Ver más</button>
+                        <button class="btn-primary" onclick="addToCart(1, 'Mascarilla Clásica 250g', 45000)">Agregar 🛒</button>
+                    </div>
+                </div>
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <div class="product-img-placeholder">Mascarilla 500g</div>
+                    <h3>Mascarilla PRO Avocare</h3>
+                    <p>Tamaño profesional para una hidratación continua y duradera.</p>
+                    <p class="price">$75.000</p>
+                    <div class="card-actions">
+                        <button class="btn-secondary" onclick="openModal('modal-prod-2')">Ver más</button>
+                        <button class="btn-primary" onclick="addToCart(2, 'Mascarilla PRO 500g', 75000)">Agregar 🛒</button>
+                    </div>
+                </div>
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <div class="product-img-placeholder">Sérum 30ml</div>
+                    <h3>Sérum Reparador</h3>
+                    <p>Sella las puntas abiertas y aporta un brillo radiante sin peso.</p>
+                    <p class="price">$35.000</p>
+                    <div class="card-actions">
+                        <button class="btn-secondary" onclick="openModal('modal-prod-3')">Ver más</button>
+                        <button class="btn-primary" onclick="addToCart(3, 'Sérum Reparador', 35000)">Agregar 🛒</button>
+                    </div>
+                </div>
+                <!-- Producto 4 -->
+                <div class="product-card">
+                    <div class="product-img-placeholder">Champú 400ml</div>
+                    <h3>Champú Revitalizante</h3>
+                    <p>Limpieza suave que prepara la cutícula para la mascarilla.</p>
+                    <p class="price">$42.000</p>
+                    <div class="card-actions">
+                        <button class="btn-secondary" onclick="openModal('modal-prod-4')">Ver más</button>
+                        <button class="btn-primary" onclick="addToCart(4, 'Champú Revitalizante', 42000)">Agregar 🛒</button>
+                    </div>
+                </div>
+                <!-- Producto 5 -->
+                <div class="product-card">
+                    <div class="product-img-placeholder">Kit Completo</div>
+                    <h3>Kit Cuidado Intensivo</h3>
+                    <p>Mascarilla 250g + Champú + Sérum. El ritual completo.</p>
+                    <p class="price">$110.000</p>
+                    <div class="card-actions">
+                        <button class="btn-secondary" onclick="openModal('modal-prod-5')">Ver más</button>
+                        <button class="btn-primary" onclick="addToCart(5, 'Kit Cuidado Intensivo', 110000)">Agregar 🛒</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Resto de secciones de forma resumida -->
+        <section id="beneficios" class="section-padding bg-light">
+            <h2 class="section-title">Beneficios</h2>
+            <p style="text-align:center;">Rica en antioxidantes y ácidos grasos, la pepa de aguacate restaura la fibra capilar desde adentro hacia afuera.</p>
+        </section>
+        <section id="uso" class="section-padding">
+            <h2 class="section-title">Modo de Uso</h2>
+            <p style="text-align:center;">Aplica sobre el cabello húmedo después del lavado. Deja actuar 15 minutos y enjuaga con abundante agua tibia.</p>
+        </section>
+        <section id="contacto" class="section-padding bg-dark text-white">
+            <h2 class="section-title text-white">Contacto</h2>
+            <p style="text-align:center;">¿Dudas? Escríbenos a hola@avocare.com</p>
+        </section>
+    </main>
+
+    <!-- Modales de Productos (Ocultos por defecto) -->
+    <div id="modal-prod-1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-prod-1')">&times;</span>
+            <h2>Ingredientes - Mascarilla Clásica</h2>
+            <p>Agua purificada, Extracto de semilla de Persea Americana (Aguacate), Manteca de Karité, Pantenol, Vitamina E, Conservantes naturales.</p>
+        </div>
+    </div>
+    <div id="modal-prod-2" class="modal">
+        <div class="modal-content"><span class="close" onclick="closeModal('modal-prod-2')">&times;</span><h2>Ingredientes - Mascarilla PRO</h2><p>Fórmula concentrada con doble extracto de pepa de aguacate, Queratina hidrolizada y Aceite de Argán.</p></div>
+    </div>
+    <!-- (Puedes replicar los modales para el resto de productos) -->
+
+    <script src="main.js"></script>
+</body>
+</html>
