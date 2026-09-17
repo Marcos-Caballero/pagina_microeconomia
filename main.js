@@ -127,3 +127,12 @@ function processCheckout() {
 
 // Ejecutar al cargar cualquier página para mantener el contador actualizado
 document.addEventListener('DOMContentLoaded', updateCartCount);
+
+// Duplicar tarjetas de productos para el carrusel infinito
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.products-track');
+    if (track) {
+        // Clona el contenido exacto para completar la segunda mitad del ciclo
+        track.innerHTML += track.innerHTML;
+    }
+});
