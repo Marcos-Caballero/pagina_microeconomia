@@ -1,132 +1,122 @@
-// 1. Inicializar el carrito desde la memoria local del navegador
-let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+// --- LÓGICA DEL CARRITO DE COMPRAS Y DESGLOSE DE IVA ---
 
-// 2. Actualizar el contador del carrito en el menú superior
-function updateCartCount() {
-    const countSpan = document.getElementById('cart-count');
-    if (countSpan) {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        countSpan.textContent = totalItems;
-    }
-}
-
-// 3. Lógica para agregar al carrito (desde index.html)
+// Función para agregar productos al carrito
 function addToCart(id, name, price) {
-    const existingItem = cart.find(item => item.id === id);
-    if (existingItem) {
-        existingItem.quantity += 1;
+    let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+    
+    // Verificar si el producto ya existe en el carrito
+    let existingIndex = cart.findIndex(item => item.id === id);
+    
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
     } else {
         cart.push({ id, name, price, quantity: 1 });
     }
+    
     localStorage.setItem('avocare_cart', JSON.stringify(cart));
     updateCartCount();
-    alert(`¡Se agregó ${name} al carrito exitosamente!`);
+    alert(`¡"${name}" se agregó al carrito exitosamente!`);
 }
 
-// 4. Lógica para abrir y cerrar modales de ingredientes
-function openModal(id) {
-    const modal = document.getElementById(id);
-    if(modal) modal.style.display = 'block';
-}
-
-function closeModal(id) {
-    const modal = document.getElementById(id);
-    if(modal) modal.style.display = 'none';
-}
-
-// Cerrar modal al hacer clic por fuera
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = 'none';
+// Actualizar el numerito del carrito en el menú superior
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) {
+        cartCountEl.innerText = totalCount;
     }
 }
 
-// 5. Lógica exclusiva para renderizar la página del carrito (carrito.html)
+// Función para renderizar los productos, subtotal, IVA y total en carrito.html
 function renderCart() {
     const cartItemsContainer = document.getElementById('cart-items');
-    if (!cartItemsContainer) return;
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const taxEl = document.getElementById('cart-tax');
+    const totalEl = document.getElementById('cart-total');
 
-    cartItemsContainer.innerHTML = '';
-    let subtotal = 0;
+    let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+    
+    updateCartCount();
 
-    // Validación de carrito vacío
+    if (!cartItemsContainer) return; // Si no estamos en la página del carrito, no hace nada aquí
+
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="padding: 1rem;">Tu carrito está vacío. ¡Descubre nuestros productos en la página de inicio!</p>';
-        document.getElementById('subtotal').textContent = '$0';
-        document.getElementById('iva').textContent = '$0';
-        document.getElementById('total').textContent = '$0';
-        
-        const btnCheckout = document.getElementById('btn-checkout');
-        if(btnCheckout) {
-            btnCheckout.disabled = true;
-            btnCheckout.style.opacity = '0.5';
-            btnCheckout.style.cursor = 'not-allowed';
-        }
+        cartItemsContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem;">Tu carrito está vacío.</td></tr>';
+        if(subtotalEl) subtotalEl.innerText = '$0';
+        if(taxEl) taxEl.innerText = '$0';
+        if(totalEl) totalEl.innerText = '$0';
         return;
     }
 
-    // Habilitar botón de compra
-    const btnCheckout = document.getElementById('btn-checkout');
-    if(btnCheckout) {
-        btnCheckout.disabled = false;
-        btnCheckout.style.opacity = '1';
-        btnCheckout.style.cursor = 'pointer';
-    }
+    let html = '';
+    let totalConIva = 0;
 
-    // Dibujar cada producto en el carrito
     cart.forEach((item, index) => {
-        subtotal += item.price * item.quantity;
-        cartItemsContainer.innerHTML += `
-            <div class="cart-item">
-                <div>
-                    <h4 style="color: var(--primary-dark); margin-bottom: 5px;">${item.name}</h4>
-                    <p style="font-weight: bold; color: var(--accent-gold);">$${item.price.toLocaleString('es-CO')}</p>
-                </div>
-                <div>
-                    <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-                    <span style="margin: 0 15px; font-weight: bold; font-size: 1.1rem;">${item.quantity}</span>
-                    <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-                </div>
-            </div>
+        let itemTotal = item.price * item.quantity;
+        totalConIva += itemTotal;
+
+        html += `
+            <tr>
+                <td>${item.name}</td>
+                <td>$${item.price.toLocaleString()}</td>
+                <td>
+                    <button onclick="updateQuantity(${index}, -1)" class="qty-btn">-</button>
+                    <span style="margin: 0 10px;">${item.quantity}</span>
+                    <button onclick="updateQuantity(${index}, 1)" class="qty-btn">+</button>
+                </td>
+                <td>$${itemTotal.toLocaleString()}</td>
+                <td><button onclick="removeFromCart(${index})" class="remove-btn">🗑️</button></td>
+            </tr>
         `;
     });
 
-    // Calcular y mostrar Subtotal, IVA (19%) y Total
-    const iva = subtotal * 0.19;
-    const total = subtotal + iva;
+    cartItemsContainer.innerHTML = html;
 
-    document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString('es-CO')}`;
-    document.getElementById('iva').textContent = `$${iva.toLocaleString('es-CO')}`;
-    document.getElementById('total').textContent = `$${total.toLocaleString('es-CO')}`;
+    // Cálculo financiero: El precio incluye IVA del 19% -> Subtotal = Total / 1.19
+    let subtotal = totalConIva / 1.19;
+    let iva = totalConIva - subtotal;
+
+    if(subtotalEl) subtotalEl.innerText = `$${Math.round(subtotal).toLocaleString()}`;
+    if(taxEl) taxEl.innerText = `$${Math.round(iva).toLocaleString()} (19%)`;
+    if(totalEl) totalEl.innerText = `$${totalConIva.toLocaleString()}`;
 }
 
-// 6. Cambiar cantidad de un producto (+ o -)
-function changeQty(index, delta) {
-    cart[index].quantity += delta;
+// Modificar cantidades dentro de la tabla del carrito
+function updateQuantity(index, change) {
+    let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+    cart[index].quantity += change;
     if (cart[index].quantity <= 0) {
-        cart.splice(index, 1); // Si llega a 0, se elimina del carrito
+        cart.splice(index, 1);
     }
     localStorage.setItem('avocare_cart', JSON.stringify(cart));
     renderCart();
-    updateCartCount();
 }
 
-// 7. Simular el pago final
-function processCheckout() {
-    if (cart.length === 0) return;
-    
-    const orderNumber = Math.floor(Math.random() * 90000) + 10000;
-    document.getElementById('order-number').textContent = `AVO-${orderNumber}`;
-    document.getElementById('modal-checkout').style.display = 'block';
-    
-    // Vaciar carrito
-    cart = [];
+// Eliminar un producto completo del carrito
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('avocare_cart')) || [];
+    cart.splice(index, 1);
     localStorage.setItem('avocare_cart', JSON.stringify(cart));
-    updateCartCount();
+    renderCart();
 }
 
-// Ejecutar al cargar cualquier página para mantener el contador actualizado
-document.addEventListener('DOMContentLoaded', updateCartCount);
+// Control de modales informativos (Ver más)
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'block';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'none';
+}
+
+// Ejecutar funciones básicas al cargar cualquier página
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    renderCart();
+});
 
 // Duplicar tarjetas de productos para el carrusel infinito
 document.addEventListener('DOMContentLoaded', () => {
@@ -136,3 +126,40 @@ document.addEventListener('DOMContentLoaded', () => {
         track.innerHTML += track.innerHTML;
     }
 });
+
+// --- LÓGICA DE AUTENTICACIÓN Y REGISTRO ---
+
+// Cambiar entre la pestaña de Login y Registro
+function switchAuthTab(tab) {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const tabs = document.querySelectorAll('.tab-btn');
+
+    if (tab === 'login') {
+        if(loginForm) loginForm.classList.add('active');
+        if(registerForm) registerForm.classList.remove('active');
+        tabs[0].classList.add('active');
+        tabs[1].classList.remove('active');
+    } else {
+        if(loginForm) loginForm.classList.remove('active');
+        if(registerForm) registerForm.classList.add('active');
+        tabs[0].classList.remove('active');
+        tabs[1].classList.add('active');
+    }
+}
+
+// Manejar el envío de inicio de sesión
+function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    alert(`¡Bienvenido de nuevo, ${email}! Has iniciado sesión correctamente.`);
+    window.location.href = 'index.html';
+}
+
+// Manejar el envío del registro de nuevo usuario
+function handleRegister(event) {
+    event.preventDefault();
+    const name = document.getElementById('reg-name').value;
+    alert(`¡Registro exitoso! bienvenido a la comunidad Avocare, ${name}.`);
+    switchAuthTab('login');
+}
